@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxshop.Mapper.RmaMapper">
+<!--    public class AfterSales { // 售后表-->
+<!--    private Long asr_id; // 售后记录唯一标识符-->
+<!--    private Long order_id; // 订单ID-->
+<!--    private Long customer_id; // 客户ID-->
+<!--    private Long product_id; // 商品ID-->
+<!--    private IssueType issue_type; // 售后问题类型: 退货、换货、维修、投诉或咨询-->
+<!--    private String issue_description; // 问题描述-->
+<!--    private Status status; // 请求状态: 待处理、处理中、已解决或已拒绝-->
+<!--    private Long resolved_by_userId; // 解决售后问题的员工ID-->
+<!--    private String resolution_notes; // 解决方案或拒绝理由-->
+<!--    private LocalDateTime createTime; // 创建时间-->
+<!--    private LocalDateTime updateTime; // 更新时间-->
+<!--    // 枚举类型-->
+<!--    public enum IssueType {-->
+<!--    Return, Exchange, Repair, Complaint, Consultation-->
+<!--    }-->
+<!--    public enum Status {-->
+<!--    Pending, InProcess, Resolved, Rejected-->
+<!--    }-->
+<!--    }-->
+
+<!--    动态插入售后信息-->
+    <insert id="addRma" parameterType="com.yxshop.Entity.Pojo.AfterSales">
+        INSERT INTO after_sales
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="asr_id != null">
+                asr_id,
+            </if>
+            <if test="order_id != null">
+                order_id,
+            </if>
+            <if test="customer_id != null">
+                customer_id,
+            </if>
+            <if test="product_id != null">
+                product_id,
+            </if>
+            <if test="issue_type != null">
+                issue_type,
+            </if>
+            <if test="issue_description != null">
+                issue_description,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="resolved_by_userId != null">
+                resolved_by_userId,
+            </if>
+            <if test="resolution_notes != null">
+                resolution_notes,
+            </if>
+
+        </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="asr_id != null">
+                    #{asr_id},
+                </if>
+                <if test="order_id != null">
+                    #{order_id},
+                </if>
+                <if test="customer_id != null">
+                    #{customer_id},
+                </if>
+                <if test="product_id != null">
+                    #{product_id},
+               </if>
+                <if test="issue_type != null">
+                    #{issue_type},
+                </if>
+                <if test="issue_description != null">
+                    #{issue_description},
+                </if>
+                <if test="status != null">
+                    #{status},
+                </if>
+                <if test="resolved_by_userId != null">
+                    #{resolved_by_userId},
+                </if>
+                <if test="resolution_notes != null">
+                    #{resolution_notes},
+                </if>
+
+            </trim>
+
+    </insert>
+
+
+<!--    动态查询售后信息-->
+    <select id="getAllRma" parameterType="com.yxshop.Entity.Pojo.AfterSales" resultType="com.yxshop.Entity.Pojo.AfterSales">
+        SELECT * FROM after_sales
+        <where>
+            <if test="asr_id != null">
+                asr_id = #{asr_id}
+            </if>
+            <if test="order_id != null">
+                AND order_id = #{order_id}
+            </if>
+            <if test="customer_id != null">
+                AND customer_id = #{customer_id}
+            </if>
+            <if test="product_id != null">
+                AND product_id = #{product_id}
+            </if>
+            <if test="issue_type != null">
+                AND issue_type = #{issue_type}
+            </if>
+            <if test="issue_description != null">
+                AND issue_description = #{issue_description}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="resolved_by_userId != null">
+                AND resolved_by_userId = #{resolved_by_userId}
+            </if>
+            <if test="resolution_notes != null">
+                AND resolution_notes = #{resolution_notes}
+            </if>
+            <if test="createTime != null">
+                AND createTime = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND updateTime = #{updateTime}
+            </if>
+
+        </where>
+    </select>
+
+
+<!--    动态修改售后信息-->
+    <update id="updateRma" parameterType="com.yxshop.Entity.Pojo.AfterSales">
+        UPDATE after_sales
+        <set>
+            <if test="issue_type != null">
+                issue_type = #{issue_type},
+            </if>
+            <if test="issue_description != null">
+                issue_description = #{issue_description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="resolved_by_userId != null">
+                resolved_by_userId = #{resolved_by_userId},
+            </if>
+            <if test="resolution_notes != null">
+                resolution_notes = #{resolution_notes},
+            </if>
+
+        </set>
+        WHERE asr_id = #{asr_id}
+
+    </update>
+</mapper>

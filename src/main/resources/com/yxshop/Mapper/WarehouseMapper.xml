@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxshop.Mapper.WarehouseMapper">
+<!--    private BigInteger warehouse_id; // 仓库唯一标识符-->
+<!--    private String warehouse_name; // 仓库名称-->
+<!--    private String address; // 仓库地址-->
+<!--    private String contact_Info; // 仓库的联系信息，如电话号码或电子邮箱-->
+<!--    private Integer total_Capacity; // 仓库的总容量，单位通常是立方米或托盘数量-->
+<!--    private Integer current_Capacity; // 当前占用的仓库容量，单位与总容量相同-->
+<!--    private Integer manager_User_Id; // 仓库经理的用户ID，用于关联仓库经理信息-->
+<!--    private LocalDateTime createTime; // 仓库创建的时间戳-->
+<!--    private LocalDateTime updateTime; // 仓库信息最后更新的时间戳-->
+
+<!--    public enum Status { // 仓库状态枚举，用于区分仓库是否处于活动状态-->
+<!--    Active, Inactive-->
+<!--    }-->
+
+<!--    private Status status; // 仓库的状态，活动或非活动-->
+
+<!--    展示当前店铺所有商品的库存信息，支持按条件筛选和排序。-->
+    <select id="getAllWarehouse" resultType="com.yxshop.Entity.Pojo.Warehouse">
+        SELECT * FROM warehouse
+        <where>
+            <if test="warehouse_id != null">
+                warehouse_id = #{warehouse_id}
+            </if>
+            <if test="warehouse_name != null">
+                AND warehouse_name = #{warehouse_name}
+            </if>
+            <if test="address != null">
+                AND address = #{address}
+            </if>
+            <if test="contact_Info != null">
+                AND contact_Info = #{contact_Info}
+            </if>
+            <if test="total_Capacity != null">
+                AND total_Capacity = #{total_Capacity}
+            </if>
+            <if test="current_Capacity != null">
+                AND current_Capacity = #{current_Capacity}
+            </if>
+            <if test="manager_User_Id != null">
+                AND manager_User_Id = #{manager_User_Id}
+            </if>
+            <if test="createTime != null">
+                AND createTime = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND updateTime = #{updateTime}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+
+        </where>
+    </select>
+
+<!--    动态添加仓库信息，包括仓库名称、地址、联系人信息、总容量、当前容量、经理ID、创建时间、更新时间、状态。-->
+    <insert id="addWarehouse" parameterType="com.yxshop.Entity.Pojo.Warehouse">
+        INSERT INTO warehouse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="warehouse_id != null">
+                warehouse_id,
+            </if>
+            <if test="warehouse_name != null">
+                warehouse_name,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="contact_Info != null">
+                contact_Info,
+            </if>
+            <if test="total_Capacity != null">
+                total_Capacity,
+            </if>
+            <if test="current_Capacity !=null">
+                current_Capacity,
+            </if>
+            <if test="manager_User_Id != null">
+                manager_User_Id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="warehouse_id != null">
+                #{warehouse_id},
+            </if>
+            <if test="warehouse_name != null">
+                #{warehouse_name},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="contact_Info != null">
+                #{contact_Info},
+            </if>
+            <if test="total_Capacity != null">
+                #{total_Capacity},
+            </if>
+            <if test="current_Capacity != null">
+                #{current_Capacity},
+            </if>
+            <if test="manager_User_Id != null">
+                #{manager_User_Id},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+        </trim>
+
+    </insert>
+
+
+<!--    动态更新仓库信息，包括仓库名称、地址、联系人信息、总容量、当前容量、经理ID、更新时间、状态。-->
+    <update id="updateWarehouse" parameterType="com.yxshop.Entity.Pojo.Warehouse">
+        UPDATE warehouse
+        <set>
+            <if test="warehouse_name != null">
+                warehouse_name = #{warehouse_name},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="contact_Info != null">
+                contact_Info = #{contact_Info},
+            </if>
+            <if test="total_Capacity != null">
+                total_Capacity = #{total_Capacity},
+            </if>
+            <if test="current_Capacity != null">
+                current_Capacity = #{current_Capacity},
+            </if>
+            <if test="manager_User_Id != null">
+                manager_User_Id = #{manager_User_Id},
+            </if>
+        </set>
+        WHERE warehouse_id = #{warehouse_id}
+    </update>
+</mapper>

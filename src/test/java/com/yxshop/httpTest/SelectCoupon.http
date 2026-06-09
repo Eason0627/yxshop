@@ -1,0 +1,7 @@
+GET http://localhost:8080/coupon
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgxMzc1NDg2NTk5MDYzNTUyMCwidXNlcm5hbWUiOiJhZG1pbjEiLCJleHAiOjE3MjI1NjU1NDV9.LA_cGTFydNtGMBIW3XK-9D7wDg4p4Hyjy5aAb7rLIo4
+
+{
+  "type_id": 2
+}

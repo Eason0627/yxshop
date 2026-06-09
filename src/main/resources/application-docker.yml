@@ -1,0 +1,80 @@
+server:
+  port: 8080
+
+spring:
+  mandatory-file-encoding: UTF-8
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:yxshop}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:yxshop_root}
+  redis:
+    host: ${REDIS_HOST:redis}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:yxshop_redis}
+    timeout: 3000
+  mybatis:
+    pagehelper:
+      helper-dialect: mysql
+      reasonable: true
+      support-methods-arguments: true
+    type-handlers-package: com.yxshop.handler
+    type-aliases-package: com.yxshop.pojo
+    mapper-locations: classpath:com.yxshop.Mapper/*.xml
+    configuration:
+      map-underscore-to-camel-case: true
+  mail:
+    host: ${MAIL_HOST:smtp.qq.com}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+          port: 465
+          socketFactory.port: 465
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: assign_id
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: false
+  mapper-locations: classpath:com.yxshop.Mapper/*.xml
+
+aliyun:
+  oss:
+    endpoint: ${ALIYUN_OSS_ENDPOINT:}
+    accessKeyId: ${ALIYUN_OSS_ACCESS_KEY_ID:}
+    accessKeySecret: ${ALIYUN_OSS_ACCESS_KEY_SECRET:}
+    bucketName: ${ALIYUN_OSS_BUCKET_NAME:}
+  sms:
+    accessKeyId: ${ALIYUN_SMS_ACCESS_KEY_ID:}
+    accessKeySecret: ${ALIYUN_SMS_ACCESS_KEY_SECRET:}
+    signName: ${ALIYUN_SMS_SIGN_NAME:}
+    templateCode: ${ALIYUN_SMS_TEMPLATE_CODE:}
+    regionId: ${ALIYUN_SMS_REGION_ID:cn-hangzhou}
+
+wechat:
+  mini-program:
+    appid: ${WECHAT_MINI_PROGRAM_APPID:}
+    secret: ${WECHAT_MINI_PROGRAM_SECRET:}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs

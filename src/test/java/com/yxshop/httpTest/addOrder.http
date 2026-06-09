@@ -1,0 +1,21 @@
+POST http://localhost:8080/orders
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgxMzc1NDg2NTk5MDYzNTUyMCwidXNlcm5hbWUiOiJhZG1pbjEiLCJleHAiOjE3MjI1NjU1NDV9.LA_cGTFydNtGMBIW3XK-9D7wDg4p4Hyjy5aAb7rLIo4
+
+{
+  "customer_id": 181375484659906352,
+  "shop_id": 1,
+  "product_id": 1815216814976798720,
+  "quantity": 1,
+  "order_total": 100,
+  "freight": 10,
+  "disbursements": 110,
+  "integral": 10,
+  "payment_method": "alipay",
+  "alipay_number": 1234567890,
+  "order_status": "Pending",
+  "payment_status": "Paid",
+  "shipping_address": "北京市海淀区",
+  "billing_address": "北京市海淀区",
+  "comments": "测试订单"
+}

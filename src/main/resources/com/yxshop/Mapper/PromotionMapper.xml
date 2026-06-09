@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxshop.Mapper.PromotionMapper">
+
+<!--    private Long promotion_id;      // 促销活动唯一标识符-->
+<!--    private String title;             // 活动标题-->
+<!--    private String description;       // 活动描述-->
+<!--    private Long type_id;           // 活动类型-->
+<!--    private LocalDateTime start_date;  // 活动开始日期和时间-->
+<!--    private LocalDateTime end_date;    // 活动结束日期和时间-->
+<!--    private BigDecimal discount;      // 折扣百分比或固定金额-->
+<!--    private BigDecimal minimum_spend;  // 最低消费金额才能享受优惠-->
+<!--    private BigDecimal maximum_spend;  // 最高消费金额限制优惠-->
+<!--    private Long product_id;        // 赠品ID-->
+<!--    private boolean is_active;         // 活动是否激活-->
+
+
+<!--    动态插入 promotion 记录-->
+    <insert id="addPromotion" parameterType="com.yxshop.Entity.Pojo.Promotion">
+        INSERT INTO promotion
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="promotion_id != null">promotion_id,</if>
+            <if test="shop_id != null">shop_id,</if>
+            <if test="title != null">title,</if>
+            <if test="description != null">description,</if>
+            <if test="type_id != null">type_id,</if>
+            <if test="start_date != null">start_date,</if>
+            <if test="end_date != null">end_date,</if>
+            <if test="discount != null">discount,</if>
+            <if test="minimum_spend != null">minimum_spend,</if>
+            <if test="maximum_spend != null">maximum_spend,</if>
+            <if test="product_id != null">product_id,</if>
+            <if test="status != null">status</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="promotion_id != null">#{promotion_id},</if>
+            <if test="shop_id != null">#{shop_id},</if>
+            <if test="title != null">#{title},</if>
+            <if test="description != null">#{description},</if>
+            <if test="type_id != null">#{type_id},</if>
+            <if test="start_date != null">#{start_date,jdbcType=TIMESTAMP},</if>
+            <if test="end_date != null">#{end_date,jdbcType=TIMESTAMP},</if>
+            <if test="discount != null">#{discount},</if>
+            <if test="minimum_spend != null">#{minimum_spend},</if>
+            <if test="maximum_spend != null">#{maximum_spend},</if>
+            <if test="product_id != null">#{product_id},</if>
+            <if test="status != null">#{status}</if>
+        </trim>
+
+
+    </insert>
+
+
+<!--动态查询 promotion 记录-->
+    <select id="getAllPromotion" parameterType="com.yxshop.Entity.Pojo.Promotion" resultType="com.yxshop.Entity.Pojo.Promotion">
+        SELECT * FROM promotion
+        <where>
+            <if test="promotion_id != null">
+                promotion_id = #{promotion_id}
+            </if>
+            <if test="title != null">
+                AND title = #{title}
+            </if>
+            <if test="description != null">
+                AND description = #{description}
+            </if>
+            <if test="type_id != null">
+                AND type_id = #{type_id}
+            </if>
+            <if test="start_date != null">
+                AND start_date = #{start_date}
+            </if>
+            <if test="end_date != null">
+                AND end_date = #{end_date}
+            </if>
+            <if test="discount != null">
+                AND discount = #{discount}
+            </if>
+            <if test="minimum_spend != null">
+                AND minimum_spend = #{minimum_spend}
+            </if>
+            <if test="maximum_spend != null">
+                AND maximum_spend = #{maximum_spend}
+            </if>
+            <if test="product_id != null">
+                AND product_id = #{product_id}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="createTime != null">
+                AND createTime = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND updateTime = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+<!--动态更新promotion记录-->
+    <update id="updatePromotion" parameterType="com.yxshop.Entity.Pojo.Promotion">
+        UPDATE promotion
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="type_id != null">type_id = #{type_id},</if>
+            <if test="start_date != null">start_date = #{start_date},</if>
+            <if test="end_date != null">end_date = #{end_date},</if>
+            <if test="discount != null">discount = #{discount},</if>
+            <if test="minimum_spend != null">minimum_spend = #{minimum_spend},</if>
+            <if test="maximum_spend != null">maximum_spend = #{maximum_spend},</if>
+            <if test="product_id != null">product_id = #{product_id},</if>
+            <if test="status != null">status = #{status},</if>
+        </set>
+        WHERE promotion_id = #{promotion_id}
+    </update>
+</mapper>

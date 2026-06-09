@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxshop.Mapper.CategoryMapper">
+<!--    private Long category_id; // 分类ID，作为主键-->
+<!--    private String category_name; // 分类名称，必须唯一-->
+<!--    @JsonProperty("parentCategory_id")-->
+<!--    @JsonFormat(shape = JsonFormat.Shape.STRING)-->
+<!--    @JSONField(serializeUsing = ToStringSerializer.class)-->
+<!--    private Long parentCategory_id; // 父分类ID，如果此分类属于另一个分类，则为其ID-->
+<!--    private String description; // 分类描述-->
+<!--    private String image_url; // 分类图标或图片的URL-->
+<!--    private LocalDateTime createTime; // 创建时间，自动填充-->
+<!--    private LocalDateTime updateTime; // 更新时间，自动更新-->
+
+<!--    动态添加分类-->
+    <insert id="addCategory" parameterType="com.yxshop.Entity.Pojo.Category">
+
+        INSERT INTO category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="category_name != null">category_name,</if>
+            <if test="parent_category_id != null">parent_category_id,</if>
+            <if test="description != null">description,</if>
+            <if test="image_url != null">image_url</if>
+
+        </trim>
+            VALUES
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+
+                <if test="category_name != null">#{category_name},</if>
+                <if test="parent_category_id != null">#{parent_category_id},</if>
+                <if test="description != null">#{description},</if>
+                <if test="image_url != null">#{image_url}</if>
+            </trim>
+    </insert>
+
+
+<!--    动态修改分类信息-->
+    <update id="updateCategory" parameterType="com.yxshop.Entity.Pojo.Category">
+        UPDATE category
+        <set>
+            <if test="category_name != null">category_name = #{category_name},</if>
+            <if test="parent_category_id != null">parent_category_id = #{parent_category_id},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="image_url != null">image_url = #{image_url}</if>
+        </set>
+        WHERE category_id = #{category_id}
+    </update>
+
+</mapper>

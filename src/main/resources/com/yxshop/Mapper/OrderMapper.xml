@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxshop.Mapper.OrderMapper">
+    <!--    private Long order_id; // 订单唯一标识符，主键-->
+    <!--    private Long customer_id; // 下单客户的用户ID，作为外键引用User表-->
+    <!--    private BigDecimal order_total; // 订单总额-->
+    <!--    private BigDecimal freight;//运费险-->
+    <!--    private BigDecimal disbursements;//实际付款-->
+    <!--    private Long integral;//积分-->
+    <!--    private String payment_method;//支付方式-->
+    <!--    private Long alipay_number;//支付宝交易号-->
+    <!--    private String order_status; // 订单状态-->
+    <!--    private String payment_status; // 支付状态-->
+    <!--    private String shipping_address; // 发货地址-->
+    <!--    private String billing_address; // 收货地址-->
+    <!--    private LocalDateTime createTime; // 创建时间，自动填充-->
+    <!--    private LocalDateTime updateTime; // 更新时间，自动更新-->
+    <!--    private LocalDateTime payTime; // 支付时间，自动更新-->
+    <!--    private LocalDateTime transactionTime; // 成交时间，自动更新-->
+    <!--    private String comments; // 订单备注-->
+
+    <!-- 动态条件查询 -->
+    <select id="getAllOrders" resultType="com.yxshop.Entity.Pojo.OrderInfo">
+        SELECT * FROM order_info
+        <where>
+        1=1
+            <if test="order_id != null">
+              AND  order_id = #{order_id}
+            </if>
+            <if test="customer_id != null">
+                AND customer_id = #{customer_id}
+            </if>
+            <if test="order_total != null">
+                AND order_total = #{order_total}
+            </if>
+            <if test="order_status != null">
+                AND order_total = #{order_total}
+            </if>
+            <if test="payment_status != null">
+                AND order_status = #{order_status}
+            </if>
+            <if test="shipping_address != null">
+                AND shipping_address = #{shipping_address}
+            </if>
+            <if test="billing_address != null">
+                AND billing_address = #{billing_address}
+            </if>
+            <if test="comments != null">
+                AND comments = #{comments}
+            </if>
+
+        </where>
+    </select>
+
+
+    <!--    <select id="getCustomerName" resultType="java.lang.String">-->
+    <!--        SELECT customer_name FROM customer WHERE customer_id = #{customer_id}-->
+    <!--    </select>-->
+    <!--    <select id="getShopName" resultType="java.lang.String">-->
+    <!--        SELECT shop_name FROM shop WHERE shop_id = #{shop_id}-->
+    <!--    </select>-->
+    <!--    <select id="getProductName" resultType="java.lang.String">-->
+    <!--        SELECT product_name FROM product WHERE product_id = #{product_id}-->
+    <!--    </select>-->
+
+
+    <!--    插入订单-->
+    <insert id="addOrder" parameterType="com.yxshop.Entity.Pojo.OrderInfo">
+        INSERT INTO order_info(
+                               order_id,
+                               customer_id,
+                               shop_id,
+                               product_id,
+                               quantity,
+                               order_total,
+                               freight,
+                               disbursements,
+                               integral,
+                               payment_method,
+                               alipay_number,
+                               order_status,
+                               payment_status,
+                               shipping_address,
+                               billing_address,
+                               payTime,
+                               transactionTime,
+                               comments)
+        VALUES (
+                #{order_id},
+                #{customer_id},
+                #{shop_id},
+                #{product_id},
+                #{quantity},
+                #{order_total},
+                #{freight},
+                #{disbursements},
+                #{integral},
+                #{payment_method},
+                #{alipay_number},
+                #{order_status},
+                #{payment_status},
+                #{shipping_address},
+                #{billing_address},
+                #{payTime},
+                #{transactionTime},
+                #{comments}
+               )
+    </insert>
+
+
+    <!--    动态更新订单-->
+    <update id="updateOrderById" parameterType="com.yxshop.Entity.Pojo.OrderInfo">
+        UPDATE order_info
+        <set>
+            <if test="order_total != null">
+                order_total = #{order_total},
+            </if>
+            <if test="order_status != null">
+                order_status = #{order_status},
+            </if>
+            <if test="payment_status != null">
+                payment_status = #{payment_status},
+            </if>
+            <if test="shipping_address != null">
+                shipping_address = #{shipping_address},
+            </if>
+            <if test="billing_address != null">
+                billing_address = #{billing_address},
+            </if>
+            <if test="comments != null">
+                comments = #{comments},
+            </if>
+        </set>
+        WHERE order_id = #{order_id}
+    </update>
+
+
+    <!--    批量逻辑删除订单-->
+    <update id="deleteOrders">
+        UPDATE order_info
+        SET order_status = 'Cancelled'
+        WHERE order_id IN
+        <foreach collection="order_id" item="order_id" open="(" separator="," close=")">
+            #{order_id}
+        </foreach>
+    </update>
+
+    <select id="getOrderNumByStatus" parameterType="java.lang.Long" resultType="java.util.Map">
+        select order_status,COUNT(order_status) statusNum from order_info
+        where shop_id = #{shopId}
+        group by order_status
+    </select>
+
+
+    <select id="getTodayOrderNum" resultType="java.util.Map">
+        SELECT
+            COUNT(*) AS totalOrders,
+            SUM(CASE WHEN DATE_FORMAT(createTime, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') THEN 1 ELSE 0 END) AS todayOrders
+        FROM order_info
+        WHERE shop_id = #{shopId}
+    </select>
+
+
+
+</mapper>

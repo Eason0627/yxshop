@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yxshop.Mapper.ProductInfoMapper">
+
+    <!--    根据id动态修改 product_info 商品信息-->
+    <update id="updateProductInfo" parameterType="com.yxshop.Entity.Pojo.ProductInfo">
+        UPDATE product_info
+        <set>
+            <if test="product_name != null">
+                product_name = #{product_name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="brand_id != null">
+                brand_id = #{brand_id},
+            </if>
+            <if test="shop_id != null">
+                shop_id = #{shop_id},
+            </if>
+            <if test="origin != null">
+                origin = #{origin},
+            </if>
+            <if test="material != null">
+                material = #{material},
+            </if>
+            <if test="size != null">
+                size = #{size},
+            </if>
+            <if test="color != null">
+                color = #{color},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="packaging_details != null">
+                packaging_details = #{packaging_details},
+            </if>
+            <if test="warranty_info != null">
+                warranty_info = #{warranty_info},
+            </if>
+            <if test="production_date != null">
+                production_date = #{production_date},
+            </if>
+            <if test="expiration_date != null">
+                expiration_date = #{expiration_date},
+            </if>
+            <if test="category_id != null">
+                category_id = #{category_id},
+            </if>
+            <if test="main_image != null">
+                main_image = #{main_image},
+            </if>
+            <if test="additional_images != null">
+                additional_images = #{additional_images},
+            </if>
+            <if test="details_images != null">
+                details_images = #{details_images},
+            </if>
+            <if test="tags != null">
+                tags = #{tags}
+            </if>
+
+        </set>
+        WHERE product_id = #{product_id}
+    </update>
+
+    <!--    根据id动态修改 ProductSales 商品信息-->
+    <update id="updateProductSales" parameterType="com.yxshop.Entity.Pojo.ProductSales">
+        UPDATE product_sales
+        <set>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="cost_price != null">
+                cost_price = #{cost_price},
+            </if>
+            <if test="stock_quantity != null">
+                stock_quantity = #{stock_quantity},
+            </if>
+            <if test="reorder_threshold != null">
+                reorder_threshold = #{reorder_threshold},
+            </if>
+            <if test="sold_quantity != null">
+                sold_quantity = #{sold_quantity},
+            </if>
+            <if test="review_count != null">
+                review_count = #{review_count},
+            </if>
+            <if test="average_rating != null">
+                average_rating = #{average_rating},
+            </if>
+            <if test="promotion_details != null">
+                promotion_details = #{promotion_details},
+            </if>
+            <if test="shipping_fee != null">
+                shipping_fee = #{shipping_fee},
+            </if>
+            <if test="sales_status != null">
+                sales_status = #{sales_status},
+            </if>
+        </set>
+        WHERE product_id = #{product_id}
+    </update>
+
+    <!--    根据id动态修改 Inventory 商品信息-->
+    <update id="updateInventory" parameterType="com.yxshop.Entity.Pojo.Inventory">
+        UPDATE inventory
+        <set>
+            <if test="warehouse_id != null">
+                warehouse_id = #{warehouse_id},
+            </if>
+            <if test="stock_quantity != null">
+                stock_quantity = #{stock_quantity},
+            </if>
+            <if test="safety_stock != null">
+                safety_stock = #{safety_stock},
+            </if>
+            <if test="last_restock_date != null">
+                last_restock_date = #{last_restock_date},
+            </if>
+            <if test="restock_threshold != null">
+                restock_threshold = #{restock_threshold},
+            </if>
+        </set>
+        WHERE product_id = #{product_id}
+    </update>
+
+
+<!--    根据id删除商品信息-->
+    <delete id="deleteProductInfo" parameterType="long">
+        DELETE FROM product_info WHERE product_id = #{product_id}
+    </delete>
+    <delete id="deleteProductSales" parameterType="long">
+        DELETE FROM product_sales WHERE product_id = #{product_id}
+    </delete>
+    <delete id="deleteInventory" parameterType="long">
+        DELETE FROM inventory WHERE product_id = #{product_id}
+    </delete>
+
+
+<!--    根据id数组批量删除 product_info 商品信息-->
+    <delete id="deleteProductInfos" parameterType="java.util.List">
+        DELETE FROM product_info WHERE product_id IN
+        <foreach item="item" index="index" collection="productIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <!--    根据id数组批量删除 ProductSales 商品信息-->
+    <delete id="deleteProductSaless" parameterType="java.util.List">
+        DELETE FROM product_sales WHERE product_id IN
+        <foreach item="item" index="index" collection="productIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <!--    根据id数组批量删除 Inventory 商品信息-->
+    <delete id="deleteInventorys" parameterType="java.util.List">
+        DELETE FROM inventory WHERE product_id IN
+        <foreach item="item" index="index" collection="productIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!--动态插入 product_info 商品信息-->
+    <insert id="addProductInfo" parameterType="com.yxshop.Entity.Pojo.ProductInfo" >
+        INSERT INTO product_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="product_id != null">product_id,</if>
+            <if test="product_name != null">product_name,</if>
+            <if test="description != null">description,</if>
+            <if test="brand_id != null">brand_id,</if>
+            <if test="shop_id != null">shop_id,</if>
+            <if test="origin != null">origin,</if>
+            <if test="material != null">material,</if>
+            <if test="size != null">size,</if>
+            <if test="color != null">color,</if>
+            <if test="weight != null">weight,</if>
+            <if test="volume != null">volume,</if>
+            <if test="packaging_details != null">packaging_details,</if>
+            <if test="warranty_info != null">warranty_info,</if>
+            <if test="production_date != null">production_date,</if>
+            <if test="expiration_date != null">expiration_date,</if>
+            <if test="category_id != null">category_id,</if>
+            <if test="main_image != null">main_image,</if>
+            <if test="additional_images != null">additional_images,</if>
+            <if test="details_images != null">details_images,</if>
+            <if test="tags != null">tags</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="product_id != null">#{product_id},</if>
+            <if test="product_name != null">#{product_name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="brand_id != null">#{brand_id},</if>
+            <if test="shop_id != null">#{shop_id},</if>
+            <if test="origin != null">#{origin},</if>
+            <if test="material != null">#{material},</if>
+            <if test="size != null">#{size},</if>
+            <if test="color != null">#{color},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="volume != null">#{volume},</if>
+            <if test="packaging_details != null">#{packaging_details},</if>
+            <if test="warranty_info != null">#{warranty_info},</if>
+            <if test="production_date != null">#{production_date},</if>
+            <if test="expiration_date != null">#{expiration_date},</if>
+            <if test="category_id != null">#{category_id},</if>
+            <if test="main_image != null">#{main_image},</if>
+            <if test="additional_images != null">#{additional_images},</if>
+            <if test="details_images != null">#{details_images},</if>
+            <if test="tags != null">#{tags}</if>
+        </trim>
+    </insert>
+
+<!--    动态插入 product_sales 记录-->
+    <insert id="addProductSales" parameterType="com.yxshop.Entity.Pojo.ProductSales">
+        INSERT INTO product_sales
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="product_id != null">
+                product_id,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="cost_price != null">
+                cost_price,
+            </if>
+            <if test="stock_quantity != null">
+                stock_quantity,
+            </if>
+            <if test="reorder_threshold != null">
+                reorder_threshold,
+            </if>
+            <if test="sold_quantity != null">
+                sold_quantity,
+            </if>
+            <if test="review_count != null">
+                review_count,
+            </if>
+            <if test="average_rating != null">
+                average_rating,
+            </if>
+            <if test="promotion_details != null">
+                promotion_details,
+            </if>
+            <if test="shipping_fee != null">
+                shipping_fee,
+            </if>
+            <if test="sales_status != null">
+                sales_status,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="product_id != null">
+                #{product_id},
+            </if>
+            <if test="price != null">
+                #{price},
+            </if>
+            <if test="cost_price != null">
+                #{cost_price},
+            </if>
+            <if test="stock_quantity != null">
+                #{stock_quantity},
+            </if>
+            <if test="reorder_threshold != null">
+                #{reorder_threshold},
+            </if>
+            <if test="sold_quantity != null">
+                #{sold_quantity},
+            </if>
+            <if test="review_count != null">
+                #{review_count},
+            </if>
+            <if test="average_rating != null">
+                #{average_rating},
+            </if>
+            <if test="promotion_details != null">
+                #{promotion_details},
+            </if>
+            <if test="shipping_fee != null">
+                #{shipping_fee},
+            </if>
+            <if test="sales_status != null">
+                #{sales_status},
+            </if>
+        </trim>
+    </insert>
+
+    <!--    动态插入 inventory 记录-->
+    <insert id="addInventory" parameterType="com.yxshop.Entity.Pojo.Inventory">
+        INSERT INTO inventory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="product_id != null">
+                product_id,
+            </if>
+            <if test="warehouse_id != null">
+                warehouse_id,
+            </if>
+            <if test="stock_quantity != null">
+                stock_quantity,
+            </if>
+            <if test="safety_stock != null">
+                safety_stock,
+            </if>
+            <if test="last_restock_date != null">
+                last_restock_date,
+            </if>
+            <if test="restock_threshold != null">
+                restock_threshold,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="product_id != null">
+                #{product_id},
+            </if>
+            <if test="warehouse_id != null">
+                #{warehouse_id},
+            </if>
+            <if test="stock_quantity != null">
+                #{stock_quantity},
+            </if>
+            <if test="safety_stock != null">
+                #{safety_stock},
+            </if>
+            <if test="last_restock_date != null">
+                #{last_restock_date},
+            </if>
+            <if test="restock_threshold != null">
+                #{restock_threshold},
+            </if>
+        </trim>
+    </insert>
+
+<!--    根据id查询 product 信息 根据product_id查询 三表（ProductInfo，ProductSales，Inventory）-->
+    <select id="getProduct" parameterType="long" resultType="com.yxshop.Entity.Dto.ProductDto">
+        SELECT
+            p.product_id,
+            p.product_name,
+            p.description,
+            b.brand_id,
+            (SELECT b.brand_name FROM brand b WHERE b.brand_id = p.brand_id) as brand_name,
+            p.shop_id,
+
+            (SELECT s.shop_name FROM shop s WHERE s.shop_id = p.shop_id) as shop_name,
+
+            p.origin,
+            p.material,
+            p.size,
+            p.color,
+            p.weight,
+            p.volume,
+            p.packaging_details,
+            p.warranty_info,
+            p.production_date,
+            p.expiration_date,
+
+            p.category_id,
+            (SELECT c.category_name FROM category c WHERE c.category_id = p.category_id) as category_name,
+            p.main_image,
+            p.additional_images,
+            p.details_images,
+            p.tags,
+            p.product_status,
+            p.createTime,
+            p.updateTime,
+           i.warehouse_id,
+           (SELECT w.warehouse_name FROM warehouse w WHERE w.warehouse_id = i.warehouse_id) as warehouse_name,
+           i.stock_quantity,
+           i.safety_stock,
+           i.last_restock_date,
+           i.restock_threshold,
+           ps.price,
+           ps.cost_price,
+           ps.stock_quantity,
+           ps.price,
+           ps.cost_price,
+           ps.sold_quantity,
+           ps.reorder_threshold,
+           ps.sold_quantity,
+           ps.review_count,
+           ps.average_rating,
+           ps.promotion_details,
+           ps.shipping_fee,
+           ps.sales_status
+        FROM
+            product_info p
+        LEFT JOIN brand b on p.brand_id = b.brand_id
+        LEFT JOIN inventory i ON p.product_id = i.product_id
+        LEFT JOIN product_sales ps ON p.product_id = ps.product_id
+        WHERE
+            p.product_id = #{product_id}
+
+    </select>
+
+    <!--    根据 product 信息 查询 三表（ProductInfo，ProductSales，Inventory）-->
+    <select id="getAllProductInfo" parameterType="com.yxshop.Entity.VO.ProductVO" resultType="com.yxshop.Entity.VO.ProductVO">
+        SELECT
+            p.product_id,
+            p.product_name,
+            p.description,
+            p.brand_id,
+            (SELECT b.brand_name FROM brand b WHERE b.brand_id = p.brand_id) as brand_name,
+            p.shop_id,
+            (SELECT s.shop_name FROM shop s WHERE s.shop_id = p.shop_id) as shop_name,
+            p.category_id,
+            (SELECT c.category_name FROM category c WHERE c.category_id = p.category_id) as category_name,
+            p.main_image,
+            p.tags,
+            p.product_status,
+            i.stock_quantity,
+            i.safety_stock,
+            ps.price,
+            ps.cost_price,
+            ps.sold_quantity,
+            ps.average_rating,
+            ps.sales_status,
+            p.updateTime
+
+        FROM
+            product_info p
+                LEFT JOIN inventory i ON p.product_id = i.product_id
+                LEFT JOIN product_sales ps ON p.product_id = ps.product_id
+        <where>
+            <if test="product_id != null">
+                p.product_id = #{product_id}
+            </if>
+
+            <if test="product_name != null">
+                AND p.product_name LIKE concat('%', #{product_name}, '%')
+            </if>
+
+            <if test="brand_id != null">
+                AND p.brand_id = #{brand_id}
+            </if>
+            <if test="shop_id != null">
+                AND p.shop_id = #{shop_id}
+            </if>
+            <if test="category_id != null">
+                AND p.category_id = #{category_id}
+            </if>
+            <if test="sales_status != null">
+                AND ps.sales_status = #{sales_status}
+            </if>
+            <if test="product_status != null">
+                AND p.product_status = #{product_status}
+            </if>
+
+        </where>
+        ORDER BY p.updateTime DESC
+    </select>
+
+
+
+<!--    动态插入商品评论-->
+    <insert id="addProductComment" parameterType="com.yxshop.Entity.Pojo.Comments">
+        INSERT INTO comments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="comment_id != null">
+                comment_id,
+            </if>
+            <if test="order_id != null">
+                order_id,
+            </if>
+            <if test="user_id != null">
+                user_id,
+            </if>
+            <if test="product_id != null">
+                product_id,
+            </if>
+            <if test="post_id != null">
+                post_id,
+            </if>
+            <if test="parent_comment_id != null">
+                parent_comment_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="rating != null">
+                rating
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="comment_id != null">
+                #{comment_id},
+            </if>
+            <if test="order_id != null">
+                #{order_id},
+            </if>
+            <if test="user_id != null">
+                #{user_id},
+            </if>
+            <if test="product_id != null">
+                #{product_id},
+            </if>
+            <if test="post_id != null">
+                #{post_id},
+            </if>
+            <if test="parent_comment_id != null">
+                #{parent_comment_id},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="rating != null">
+                #{rating}
+            </if>
+        </trim>
+    </insert>
+
+<!--    获取品牌、商品、店铺、仓库信息-->
+    <select id="getProductCommentByUserId" parameterType="string" resultType="com.yxshop.Entity.VO.BrandInfoVO">
+        SELECT DISTINCT
+            s.shop_id,
+            s.shop_name,
+            b.brand_id,
+            b.brand_name,
+            w.warehouse_id,
+            w.warehouse_name
+        FROM
+            shop s
+                LEFT JOIN brand b ON s.shop_id = b.shop_id
+                LEFT JOIN warehouse w ON s.owner_user_id = w.user_id
+        WHERE
+        s.owner_user_id = #{userId}
+    </select>
+    <select id="getProductPromotion" resultType="java.lang.Object" parameterType="long">
+
+    </select>
+</mapper>

@@ -1,0 +1,21 @@
+POST http://localhost:8080/promotion
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgxMzc1NDg2NTk5MDYzNTUyMCwidXNlcm5hbWUiOiJhZG1pbjEiLCJleHAiOjE3MjI1NjU1NDV9.LA_cGTFydNtGMBIW3XK-9D7wDg4p4Hyjy5aAb7rLIo4
+
+{
+  "promotion": {
+    "title": "夏季大促",
+    "description": "全场商品8折优惠，快来抢购吧！",
+    "start_date": "2023-07-01T00:00:00",
+    "end_date": "2023-07-31T23:59:59",
+    "discount": "0.80",
+    "minimum_spend": "100.00",
+    "maximum_spend": "1000.00",
+    "product_id": null,
+    "is_active": true
+  },
+  "promotionType": {
+    "name": "Discount",
+    "description": "为商品提供直接的折扣优惠。"
+  }
+}

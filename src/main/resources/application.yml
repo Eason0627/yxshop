@@ -1,0 +1,84 @@
+spring:
+  mandatory-file-encoding: UTF-8
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  servlet:
+    multipart:
+      # 单个文件最大上传大小
+      max-file-size: 10MB
+      # 单个请求最大上传大小(一次请求可以上传多个文件)
+      max-request-size: 100MB
+  datasource:
+    # 驱动类名称
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    # 数据库URL
+#    url: jdbc:mysql://localhost:3306/yxshop
+    url: jdbc:p6spy:mysql://localhost:3306/yxshop
+    # 用户名
+    username: root
+    # 密码
+    password: 123456
+  mybatis:
+    # pageHelper分页配置
+    pagehelper:
+      helper-dialect: mysql
+      reasonable: true
+      support-methods-arguments: true
+
+    type-handlers-package: com.yxshop.handler  #增加此项配置
+    type-aliases-package: com.yxshop.pojo
+    mapper-locations: classpath:com.yxshop.Mapper/*.xml
+    configuration:
+      # mybatis日志，指定输出控制台
+#      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+      # 开启mybatis驼峰命名自动映射开关 a_column ---> aCloumn
+      map-underscore-to-camel-case: true
+
+  #邮箱配置
+  #平台地址，这里用的是qq邮箱，使用其他邮箱请更换
+  mail:
+    host: smtp.qq.com
+    username: 2508213395@qq.com
+    password: iutjxoutagohdice
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+          port: 465
+          socketFactory.port: 465
+
+
+#mybatisplus配置
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: assign_id
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: false
+  mapper-locations: classpath:com.yxshop.Mapper/*.xml
+
+# 自定义的阿里云OSS配置信息
+aliyun:
+  oss:
+    endpoint: https://oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: LTAI5tKkfu52hK35Gnq7HCq5
+    accessKeySecret: 6g8I4Z7iZoGoX2tnxaiZKnDl0KBTWi
+    bucketName: my-oss-xiyuu
+
+# 微信小程序配置
+wechat:
+  mini-program:
+    appid: wxfa883af23aac4438
+    secret: 764d4c1a40ea116c768686340c0b30ca
+
+

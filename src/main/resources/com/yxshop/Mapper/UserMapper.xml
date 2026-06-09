@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.yxshop.Mapper.UserMapper">
+
+<!--    //添加用户-->
+    <insert id="addUser" parameterType="com.yxshop.Entity.Pojo.User">
+        INSERT INTO user(id, username,nick_name,email, password)
+        VALUES (#{id}, #{username},#{nick_name},#{email} ,#{password})
+    </insert>
+
+    <!-- 条件查询 -->
+    <select id="getUserContains" resultType="com.yxshop.Entity.VO.UserVo">
+        SELECT *
+        FROM user
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="username != null">
+                AND username LIKE concat('%', #{username}, '%')
+            </if>
+            <if test="email != null">
+                AND email = #{email}
+            </if>
+            <if test="phone != null">
+                AND phone = #{phone}
+            </if>
+            <if test="role != null">
+                AND role = #{role}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="createTime != null">
+                AND createTime = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND updateTime = #{updateTime}
+            </if>
+            <if test="createTime != null and updateTime != null">
+                AND createTime BETWEEN #{createTime} AND #{updateTime}
+            </if>
+        </where>
+        ORDER BY updateTime DESC
+    </select>
+<!--    动态更新用户信息-->
+    <update id="updateUser" parameterType="com.yxshop.Entity.Pojo.User">
+        UPDATE user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="nick_name != null">
+                nick_name = #{nick_name},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="wechat_id != null">
+                wechat_id = #{wechat_id},
+            </if>
+            <if test="real_name != null">
+                real_name = #{real_name},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="birth != null">
+                birth = #{birth},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="default_address != null">
+                default_address = #{default_address},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+<!--    批量用户删除-->
+    <update id="deleteUsers">
+        UPDATE user
+        SET status = 'Invalid'
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+<!--    动态修改用户地址-->
+    <update id="updateAddress" parameterType="com.yxshop.Entity.Pojo.Address">
+        UPDATE address
+        <set>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="country != null">
+                country = #{country},
+            </if>
+            <if test="is_default != null">
+                is_default = #{is_default},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+           </if>
+            <if test="postal_code != null">
+                postal_code = #{postal_code},
+            </if>
+            <if test="recipient_name != null">
+                recipient_name = #{recipient_name},
+            </if>
+            <if test="state_province != null">
+                state_province = #{state_province},
+            </if>
+            <if test="nick_name != null">
+                nick_name = #{nick_name},
+            </if>
+            <if test="street_address != null">
+                street_address = #{street_address},
+            </if>
+        </set>
+        WHERE address_id = #{address_id}
+    </update>
+</mapper>
+

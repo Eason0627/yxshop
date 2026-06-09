@@ -1,0 +1,47 @@
+POST http://localhost:8080/products
+Content-Type: application/json
+#token
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgxMzc1NDg2NTk5MDYzNTUyMCwidXNlcm5hbWUiOiJhZG1pbjEiLCJleHAiOjE3MjI1NjU1NDV9.LA_cGTFydNtGMBIW3XK-9D7wDg4p4Hyjy5aAb7rLIo4
+
+{
+  "product_info": {
+    "product_name": "测试商品",
+    "description": "测试商品描述",
+    "brand_id": 1,
+    "shop_id": 1,
+    "origin": "中国",
+    "material": "塑料",
+    "size": "100*100*100",
+    "color": "白色",
+    "weight": 1.0,
+    "packaging_details": "盒装",
+    "warranty_info": "一年质保",
+    "production_date": "2023-05-01",
+    "expiration_date": "2023-06-01",
+    "category_id": 1,
+    "main_image": "https://example.com/main_image.jpg",
+    "additional_images": "[\"https://example.com/additional_image1.jpg\",\"https://example.com/additional_image2.jpg\"]",
+    "details_images": "[\"https://example.com/details_image1.jpg\",\"https://example.com/details_image2.jpg\"]",
+    "tags": "[\"标签1\",\"标签2\"]"
+  },
+  "product_sales": {
+    "price": 100.0,
+    "cost_price": 80.0,
+    "stock_quantity": 100,
+    "reorder_threshold": 10,
+    "sold_quantity": 0,
+    "review_count": 0,
+    "average_rating": 0.0,
+    "promotion_details": "促销详情",
+    "shipping_fee": 10.0
+  },
+  "inventory": {
+    "warehouse_id": 1,
+    "stock_quantity": 100,
+    "safety_stock": 10,
+    "last_restock_date": "2023-05-01",
+    "restock_threshold": 10
+  }
+}
+
+###

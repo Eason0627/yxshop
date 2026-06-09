@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxshop.Mapper.ShopMapper">
+
+    <!-- 条件查询 -->
+<!--    <select id="getShopContains" resultType="com.yxshop.Entity.Pojo.Shop">-->
+<!--        SELECT *-->
+<!--        FROM shop-->
+<!--        <where>-->
+<!--            <if test="shop_id != null">-->
+<!--                shop_id = #{shop_id}-->
+<!--            </if>-->
+<!--            <if test="owner_user_id != null">-->
+<!--                AND owner_user_id = #{owner_user_id}-->
+<!--            </if>-->
+<!--            <if test="shop_name != null">-->
+<!--                AND shop_name LIKE concat('%', #{shop_name}, '%')-->
+<!--            </if>-->
+<!--            <if test="status != null">-->
+<!--                AND status = #{status}-->
+<!--            </if>-->
+<!--            <if test="shop_description != null">-->
+<!--                AND shop_description = #{shop_description}-->
+<!--            </if>-->
+<!--            <if test="shop_image != null">-->
+<!--                AND shop_image = #{shop_image}-->
+<!--            </if>-->
+<!--            <if test="location != null">-->
+<!--                AND location = #{location}-->
+<!--            </if>-->
+<!--            <if test="phone != null">-->
+<!--                AND phone = #{phone}-->
+<!--            </if>-->
+<!--            <if test="shop_description != null">-->
+<!--                AND shop_description LIKE concat('%', #{shop_description}, '%')-->
+<!--            </if>-->
+<!--            <if test="shop_image != null">-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+<!--&lt;!&ndash;    根据用户id查询旗下店铺信息&ndash;&gt;-->
+<!--    <select id="getShopByUserId" resultType="com.yxshop.Entriy.Pojo.Shop">-->
+<!--        SELECT *-->
+<!--        FROM shop-->
+<!--        WHERE owner_user_id = #{userId}-->
+<!--    </select>-->
+
+<!--&lt;!&ndash;    动态修改店铺信息&ndash;&gt;-->
+<!--    <update id="updateShop" parameterType="com.yxshop.Entity.Pojo.Shop">-->
+<!--        UPDATE shop-->
+<!--        <set>-->
+<!--            <if test="shop_name != null">-->
+<!--                shop_name = #{shop_name},-->
+<!--            </if>-->
+<!--            <if test="status != null">-->
+<!--                status = #{status},-->
+<!--            </if>-->
+<!--            <if test="shop_image != null">-->
+<!--                shop_image = #{shop_image},-->
+<!--            </if>-->
+<!--            <if test="location != null">-->
+<!--                location = #{location},-->
+<!--            </if>-->
+<!--            <if test="phone != null">-->
+<!--                phone = #{phone},-->
+<!--            </if>-->
+<!--            <if test="registration_date != null">-->
+<!--                registration_date = #{registration_date},-->
+<!--            </if>-->
+<!--            <if test="shop_description != null">-->
+<!--                shop_description = #{shop_description},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        WHERE shop_id = #{shop_id}-->
+<!--    </update>-->
+
+<!--&lt;!&ndash;          动态插入店铺&ndash;&gt;-->
+<!--    <insert id="addShop" parameterType="com.yxshop.Entity.Pojo.Shop">-->
+<!--        INSERT INTO shop-->
+<!--        <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--            <if test="shop_id != null">shop_id,</if>-->
+<!--            <if test="shop_name != null">shop_name,</if>-->
+<!--            <if test="owner_user_id != null">owner_user_id,</if>-->
+<!--            <if test="status != null">`status`,</if>-->
+<!--            <if test="shop_description != null">shop_description,</if>-->
+<!--            <if test="shop_image != null">shop_image,</if>-->
+<!--            <if test="location != null">location,</if>-->
+<!--            <if test="phone != null">phone,</if>-->
+<!--            <if test="registration_date != null">registration_date</if>-->
+<!--        </trim>-->
+<!--        VALUES-->
+<!--        <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--            <if test="shop_id != null">#{shop_id},</if>-->
+<!--            <if test="shop_name != null">#{shop_name},</if>-->
+<!--            <if test="owner_user_id != null">#{owner_user_id},</if>-->
+<!--            <if test="status != null">#{status},</if>-->
+<!--            <if test="shop_description != null">#{shop_description},</if>-->
+<!--            <if test="shop_image != null">#{shop_image},</if>-->
+<!--            <if test="location != null">#{location},</if>-->
+<!--            <if test="phone != null">#{phone},</if>-->
+<!--            <if test="registration_date != null">#{registration_date}</if>-->
+<!--        </trim>-->
+<!--    </insert>-->
+
+<!--    查询ids范围内的数据-->
+<!--    <select id="getShopByIds" parameterType="com.yxshop.Entriy.Pojo.Shop" resultType="java.lang.Integer">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM shop-->
+<!--        <where>-->
+<!--            <foreach item="item" index="index" collection="ids" open="shop_id in (" separator="," close=")">-->
+<!--                #{item}-->
+<!--            </foreach>-->
+<!--        </where>-->
+<!--    </select>-->
+</mapper>

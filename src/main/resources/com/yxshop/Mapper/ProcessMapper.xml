@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxshop.Mapper.ProcessMapper">
+
+    <select id="getAfterSaleCount" resultType="java.util.Map" parameterType="java.lang.String">
+        select
+            count(case when process_type = '退货退款' then 1 end) as '退货退款',
+            count(case when process_type = '仅退货' then 1 end) as '仅退货',
+            count(case when process_type = '仅退款' then 1 end) as '仅退款',
+            count(case when process_type IN ('换货', '退货换新') then 1 end) as '退换货'
+        from process
+        where effect_id = #{shopId}
+    </select>
+
+</mapper>
